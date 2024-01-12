@@ -44,16 +44,7 @@ def write_to_file(wounds, folder_list, count_list, title):
   df.to_csv("Count Data/" + title)
 
 if __name__ == "__main__":
-#-------------------------
-  ##using sorted by wound 
-  # exp10_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp10"
-  # Experiment, wound_list, folder_list, count_list = count_files_in_subdirectories(exp10_path, -2)
-  # write_to_file(wound_list, folder_list, count_list, Experiment)
-#-------------------------
-  ##using sorted by wound 
-  # exp11_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp11"
-  # Experiment, wound_list, folder_list, count_list = count_files_in_subdirectories(exp11_path, -2)
-  # write_to_file(wound_list, folder_list, count_list, Experiment)
+
 #------------------------- 
   # https://www.dropbox.com/home/BETR%20DARPA%20Project/Research%20and%20Data/Porcine%20Experiment%20at%20Davis/20220808-20220818%20Swine%20Exp-1/DARPA_Porcine_Exp_1
   # exp1_path_305 = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp1/Pig 305"
@@ -98,8 +89,29 @@ if __name__ == "__main__":
   # write_to_file(wound_list, folder_list, count_list, "Exp8")  
    
   #cant find exp9 
+   
+  #-------------------------
+  ##using sorted by wound 
+  # exp10_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp10"
+  # Experiment, wound_list, folder_list, count_list = count_files_in_subdirectories(exp10_path, -2)
+  # write_to_file(wound_list, folder_list, count_list, Experiment)
+  #-------------------------
+  ##using sorted by wound 
+  # exp11_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp11"
+  # Experiment, wound_list, folder_list, count_list = count_files_in_subdirectories(exp11_path, -2)
+  # write_to_file(wound_list, folder_list, count_list, Experiment)
+   
   #https://www.dropbox.com/home/BETR%20DARPA%20Project/Research%20and%20Data/Porcine%20Experiment%20at%20Davis/20230508-20230523%20Swine%20Expt-12/Wound%20Picture%20by%20device%20camera/Wound%20photo_sorted%20by%20wound
   # exp12_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp12"
   # wound_list, folder_list, count_list = count_files_in_subdirectories(exp12_path, -2)
   # write_to_file(wound_list, folder_list, count_list, "Exp12")  
+   
+  # exp13_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp13"
+  # wound_list, folder_list, count_list = count_files_in_subdirectories(exp13_path, -2)
+  # write_to_file(wound_list, folder_list, count_list, "Exp13")  
+   
+  #https://www.dropbox.com/home/BETR%20DARPA%20Project/Research%20and%20Data/Porcine%20Experiment%20at%20Davis/20230814-20230829%20Swine%20Expt-14/Wound%20Picture%20by%20Device%20Camera 
+  # exp14_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp14"
+  # wound_list, folder_list, count_list = count_files_in_subdirectories(exp14_path, -2)
+  # write_to_file(wound_list, folder_list, count_list, "Exp14")  
    
