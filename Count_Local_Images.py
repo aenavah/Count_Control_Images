@@ -97,10 +97,9 @@ if __name__ == "__main__":
   # wound_list, folder_list, count_list = count_files_in_subdirectories(exp8_path, -2)
   # write_to_file(wound_list, folder_list, count_list, "Exp8")  
    
-  #cant find exp9
-
-  
-  exp12_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp12"
-  wound_list, folder_list, count_list = count_files_in_subdirectories(exp12_path, -2)
-  write_to_file(wound_list, folder_list, count_list, "Exp12")  
+  #cant find exp9 
+  #https://www.dropbox.com/home/BETR%20DARPA%20Project/Research%20and%20Data/Porcine%20Experiment%20at%20Davis/20230508-20230523%20Swine%20Expt-12/Wound%20Picture%20by%20device%20camera/Wound%20photo_sorted%20by%20wound
+  # exp12_path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Exp12"
+  # wound_list, folder_list, count_list = count_files_in_subdirectories(exp12_path, -2)
+  # write_to_file(wound_list, folder_list, count_list, "Exp12")  
    
