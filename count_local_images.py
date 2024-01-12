@@ -22,7 +22,7 @@ def count_files_in_subdirectories(directory, neg_wound_index):
             if ("Wound" in path_split[neg_wound_index]):
               wound = path_split[neg_wound_index]
 
-            if ("2022" in path_split[-1]) or ("2023" in path_split[-1]):
+            if ("2022" in path_split[-1]) or ("2023" in path_split[-1]) or ("2024" in path_split[-1]):
               folder_name = path_split[-1]
 
             if (wound!=" " and file_count!=" " and folder_name != " "):
@@ -46,7 +46,7 @@ def write_to_file(wounds, folder_list, count_list, title):
 if __name__ == "__main__":
   #user inputs: 
   path = "YOURPATH/Wound_X/Date-Time/data.jpg"
-  wound_subdirectory = -2 
+  wound_subdirectory = -2 #aligns with subdirectory above
   experiment_number = "Exp_X"
   pig_id = ""
   #---------------------------------
