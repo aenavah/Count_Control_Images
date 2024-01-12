@@ -114,7 +114,7 @@ if __name__ == "__main__":
   exp8_path = "/20230131-20230207 Swine Expt-8/TA2 wound picture by device camera_original name/Wound photo_sorted by wound"
   exp9_path = "/20230206-20230221 Swine Expt-9" #cant find
   exp10_path = "/20230221-20230306 Swine Expt-10/Wound Photos by Device/Wound photo_sorted by wound" #not working
-  exp11_path = "/20230326-20230413 Swine Expt-11/Wound Photos by device camera/Wound photo_sorted by wound/Wound_7"
+  exp11_path = "/20230326-20230413 Swine Expt-11/Wound Photos by device camera/Wound photo_sorted by wound" #not working 
   exp12_path = "/20230508-20230523 Swine Expt-12"
   exp13_path = "/20230601-20230616 Swine Expt-13"
   exp14_path = "/20230814-20230829 Swine Expt-14"
