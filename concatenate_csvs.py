@@ -17,7 +17,7 @@ if __name__ == "__main__":
   global base
   base = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Count Data/V2/"
   output_path = base + "Data_V2.csv"
-  output_path_V2 = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Count Data/V3/" + "Data_V3.csv"
+  output_path_V2 = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Count Data/" + "Data_V3.csv"
 
 
   exp1_pig305_path = "Research and Data/Porcine Experiment at Davis/20220808-20220818 Swine Exp-1/DARPA_Porcine_Exp_1/Pig 305"

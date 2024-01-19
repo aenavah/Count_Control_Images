@@ -30,7 +30,7 @@ def plot_data(key, data):
     plt.plot(dates, counts)
     title = key.replace(" ", "")
     title = title.replace("Exp", "Experiment ")
-    title = title.replace("Pig", ": Pig ")
+    title = title.replace("Pig", " ("+ type_ +"): Pig ")
     title = title.replace("Wound", ", Wound ")
     title = title.replace("_", "")
     title = title.replace("-", "")
@@ -41,12 +41,13 @@ def plot_data(key, data):
 
     plt.xticks(fontsize = 8, rotation = 40, ha='right')
     plt.yticks(range(min(counts), max(counts)+1), fontsize = 10)
-    plt.savefig(base + "Plots/" + key.strip())
+    plt.savefig(base + "Plots/" + type_ + "_" + key.strip())
 
 if __name__ == "__main__":
   global base
+  type_ = "Device"
   base =  "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Count Data/" 
-  file = "V3/Data_V3.csv"
+  file = "Data_V3.csv"
   path = base + file 
 
   exps_found = {}
