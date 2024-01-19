@@ -4,22 +4,12 @@ import os
 
 
 def correct_naming(path):
-
   indexes_to_add_underscore = [3, 5, 7, 9]
   df = pd.read_csv(path)
   df = df[["Dropbox Path", "Experiment", "Wound", "Folder Name", "Count"]]
-  print("hit2")
   df["Folder Name"] = df["Folder Name"].astype(str).str.replace("_", "")
-  print("before if----------------------")
   print(df["Folder Name"].astype(str))
   df["Folder Name"] = df["Folder Name"].apply(lambda x: ''.join(c + '_' if len(x) == 12 and i in indexes_to_add_underscore else c for i, c in enumerate(x)))
-
-  # if len(df["Folder Name"].astype(str)) == 12:
-  #   print(df["Folder Name"].astype(str))
-  #   print("in if------------------------------------------------")
-  #   df["Folder Name"] = df["Folder Name"].apply(lambda x: ''.join(c if i not in indexes_to_add_underscore else c + '_' for i, c in enumerate(x)))
-  # else:
-    #pass
   return df
 
 if __name__ == "__main__":
@@ -77,9 +67,9 @@ if __name__ == "__main__":
     df_curr_updated = pd.concat([dropbox_column[["Dropbox Path"]], exp_column[["Experiment"]], df_curr[["Wound", "Folder Name", "Count"]]], axis=1, ignore_index=True)
     main_df = pd.concat([main_df, df_curr_updated], axis=0, ignore_index=True)
 
-  #print(main_df)
   main_df.to_csv(output_path, header = ["Dropbox Path", "Experiment", "Wound", "Folder Name", "Count"])
   print("Output V2...")
   main_df_updated = correct_naming(output_path)
   print("Updated naming...")
   main_df_updated.to_csv(output_path_V2)
+  print("Output V3...")
