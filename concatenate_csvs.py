@@ -3,9 +3,31 @@ import os
 
 
 
+def correct_naming(path):
+
+  indexes_to_add_underscore = [3, 5, 7, 9]
+  df = pd.read_csv(path)
+  df = df[["Dropbox Path", "Experiment", "Wound", "Folder Name", "Count"]]
+  print("hit2")
+  df["Folder Name"] = df["Folder Name"].astype(str).str.replace("_", "")
+  print("before if----------------------")
+  print(df["Folder Name"].astype(str))
+  df["Folder Name"] = df["Folder Name"].apply(lambda x: ''.join(c + '_' if len(x) == 12 and i in indexes_to_add_underscore else c for i, c in enumerate(x)))
+
+  # if len(df["Folder Name"].astype(str)) == 12:
+  #   print(df["Folder Name"].astype(str))
+  #   print("in if------------------------------------------------")
+  #   df["Folder Name"] = df["Folder Name"].apply(lambda x: ''.join(c if i not in indexes_to_add_underscore else c + '_' for i, c in enumerate(x)))
+  # else:
+    #pass
+  return df
+
 if __name__ == "__main__":
   global base
   base = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Count Data/V2/"
+  output_path = base + "Data_V2.csv"
+  output_path_V2 = base + "Data_V3.csv"
+
 
   exp1_pig305_path = "Research and Data/Porcine Experiment at Davis/20220808-20220818 Swine Exp-1/DARPA_Porcine_Exp_1/Pig 305"
   exp1_pig306_path = "Research and Data/Porcine Experiment at Davis/20220808-20220818 Swine Exp-1/DARPA_Porcine_Exp_1/Pig 306"
@@ -43,21 +65,21 @@ if __name__ == "__main__":
 
   ind_files = [exp1_pig305, exp1_pig306, exp4_pig1, exp4_pig2, exp5_pig1, exp5_pig2, exp6_pig1, exp6_pig2, exp7_pig2, exp7_pig3, exp8, exp10, exp11, exp12, exp13]
   dropbox_paths = [exp1_pig305_path, exp1_pig306_path, exp4_pig1_path, exp4_pig2_path, exp5_pig1_path, exp5_pig2_path, exp6_pig1_path, exp6_pig2_path, exp7_pig2_path, exp7_pig3_path, exp8_path, exp10_path, exp11_path, exp12_path, exp13_path]
-
   main_df = pd.DataFrame()
   for index in range(0,len(ind_files)-1):
-    print(index)
     file = ind_files[index]
     file_path = base + file + ".csv"
-    print(file)
-    print(file_path)
-    print("----------")
     dropbox_path = (dropbox_paths[index])
-    print(file_path)
     df_curr = pd.read_csv(file_path)
     dropbox_column = pd.DataFrame({'Dropbox Path': [dropbox_path] * df_curr.shape[0]})
-    df_curr_updated = pd.concat([dropbox_column, df_curr], axis=1, ignore_index=True)
+    exp_column = pd.DataFrame({'Experiment': [file] * df_curr.shape[0]})
+
+    df_curr_updated = pd.concat([dropbox_column[["Dropbox Path"]], exp_column[["Experiment"]], df_curr[["Wound", "Folder Name", "Count"]]], axis=1, ignore_index=True)
     main_df = pd.concat([main_df, df_curr_updated], axis=0, ignore_index=True)
 
   #print(main_df)
-  main_df.to_csv(base + "Data_V2.csv")
+  main_df.to_csv(output_path, header = ["Dropbox Path", "Experiment", "Wound", "Folder Name", "Count"])
+  print("Output V2...")
+  main_df_updated = correct_naming(output_path)
+  print("Updated naming...")
+  main_df_updated.to_csv(output_path_V2)
