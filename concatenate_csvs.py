@@ -7,6 +7,7 @@ def correct_naming(path):
   indexes_to_add_underscore = [3, 5, 7, 9]
   df = pd.read_csv(path)
   df = df[["Dropbox Path", "Experiment", "Wound", "Folder Name", "Count"]]
+  df["Folder Name"] = df["Folder Name"].astype(str).str.replace("-", "_")
   df["Folder Name"] = df["Folder Name"].astype(str).str.replace("_", "")
   print(df["Folder Name"].astype(str))
   df["Folder Name"] = df["Folder Name"].apply(lambda x: ''.join(c + '_' if len(x) == 12 and i in indexes_to_add_underscore else c for i, c in enumerate(x)))
