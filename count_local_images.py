@@ -37,19 +37,22 @@ def count_files_in_subdirectories(directory, neg_wound_index):
 
 def write_to_file(wounds, folder_list, count_list, title):
   df = pd.DataFrame({
+  "Dropbox Path": dropbox_path,
+  "Experiment": experiment,
   "Wound": wounds,
   "Folder Name": folder_list,
-  "Count": count_list
-  })
-  df.to_csv("Count Data/" + title)
+  "Count": count_list})
+  df.to_csv("Count Data/V1/" + title)
 
 if __name__ == "__main__":
-  #user inputs: 
-  path = "YOURPATH/Wound_X/Date-Time/data.jpg"
+  #user inputs---------------------: 
+  dropbox_path = "path placeholder"
+  type_ = "Device"
+  #path = "YOURPATH/Wound_X/Date-Time/data.jpg" image path 
+  path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Pi_2"
   wound_subdirectory = -2 #aligns with subdirectory above
-  experiment_number = "Exp_X"
-  pig_id = ""
+  experiment = "Exp4_Pig2" 
   #---------------------------------
 
   wound_list, folder_list, count_list = count_files_in_subdirectories(path, wound_subdirectory)
-  write_to_file(wound_list, folder_list, count_list, experiment_number + pig_id)
+  write_to_file(wound_list, folder_list, count_list, type_ + "_" + experiment + ".csv")

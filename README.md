@@ -5,5 +5,6 @@ Change user inputs in code:
 #user inputs:
 path = "YOURPATH/Wound_X/Date-Time/data.jpg"
 wound_subdirectory = -2
-experiment_number = "Exp_X"
-pig_id = ""
+experiment = "" ExpX_PigX
+
+Write out individual dataframes for each experiment holding the dropboxpath, experiment/pig id, folder, wound, and count in the V1 folder.
