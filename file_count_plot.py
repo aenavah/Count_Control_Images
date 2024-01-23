@@ -1,9 +1,20 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from datetime import datetime
+from datetime import datetime, timedelta
 import matplotlib.dates as mdates
 
 plt.rcParams['font.family'] = 'Arial'
+
+
+def map_days_to_dates(day_list, start_date):
+    date_dict = {}
+    for day in day_list:
+        if day.startswith("Day"):
+            day_number = int(day[3:])  # Extract the number after "Day"
+            date_dict[day] = start_date + timedelta(days=day_number)
+        else:
+            date_dict[day] = start_date
+    return date_dict
 
 
 def plot_data(key, data, type_):
@@ -12,16 +23,35 @@ def plot_data(key, data, type_):
     dates = []
     counts = []
     for row in data:
-        path, exp, wound, date, count = row 
-        if len(date) == 16:
-          date = datetime.strptime(date, "%Y_%m_%d_%H_%M")
-          dates.append(date)
-          counts.append(count)
-        else:
-            print("Unable to plot " + date + "...")
+        if type_ == "iPhone":
+            path, exp, wound, day, count = row 
+            tmp = path.split("/")[4]
+            tmp = tmp.split("-")
+            date_init = tmp[0]
+            year = int(date_init[0:4])
+            month = int(date_init[4:6])
+            day_ = int(date_init[6:8])
+            date_of_day_0 = datetime(year, month, day_)
+            days_list = ["Day 0", "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10"]
+            mapped_dates_dict = map_days_to_dates(days_list, date_of_day_0)
+            date = mapped_dates_dict[day]
+            if len(str(date).split(" ")[0]) == 10:
+                dates.append(str(date))
+                counts.append(count)
+            else:
+                print("Unable to plot " + str(date) + "...")
+
+
+        if type_ == "Device":
+            path, exp, wound, date, count = row 
+            if len(date) == 16:
+                date = datetime.strptime(date, "%Y_%m_%d_%H_%M")
+                dates.append(date)
+                counts.append(count)
+            else:
+                print("Unable to plot " + date + "...")
 
     sorted_indices = sorted(range(len(dates)), key=lambda k: dates[k])
-    
     # Reorder dates and counts based on sorted indices
     dates = [dates[i] for i in sorted_indices]
     counts = [counts[i] for i in sorted_indices]
@@ -38,24 +68,12 @@ def plot_data(key, data, type_):
     plt.ylabel("Number of Images")
     plt.subplots_adjust(bottom=0.2)
 
-    date_formatter = mdates.DateFormatter("%Y-%m-%d %H:%M")
-    plt.gca().xaxis.set_major_formatter(date_formatter)
-
     plt.xticks(fontsize = 8, rotation = 40, ha='right')
     plt.yticks(range(min(counts), max(counts)+1), fontsize = 8)
     plt.grid(axis='y', linestyle='dotted', alpha=0.5)
 
     plt.savefig(base + "Plots/" + type_ + "_" + key.strip())
     plt.close() 
-    # for x, y in zip(dates,counts):
-    #     plt.text(x, y, f'({x}, {y})', ha='right', va='bottom', fontsize = 5, rotation = 20)  # Display coordinates as labels
-
-    #debugging:
-    # df = pd.DataFrame({
-    #     "Dates": dates,
-    #     "Count": counts
-    # })
-    # df.to_csv(base + "/Plots/Individual Data/" + title + ".csv")
 
 if __name__ == "__main__":
   global base
@@ -78,6 +96,9 @@ if __name__ == "__main__":
 
   for key in exps_found.keys():
       data = exps_found[key]
-      print("------------------------------Plotting " + key + "...")          
-      plot_data(key, data, type_)
+      print("------------------------------Plotting " + key + "...")     
+      if type_ == "Device":     
+        plot_data(key, data, type_)
+      if type_ == "iPhone":
+        plot_data(key, data, type_)
       
