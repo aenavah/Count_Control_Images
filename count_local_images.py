@@ -6,22 +6,24 @@ def count_files_in_subdirectories_V2(directory, dropbox_path, exp):
   for root, dirs, files in os.walk(directory):
     print(root)
     if "Day" in root.split("/")[-1]:
-      day = root.split("/")[-1]
+      Day = root.split("/")[-1]
       #file count per folder, experiment,   
       dictionary= {}
       for file in files:
         file = file.split("-")
         for cell in file:
+            if "Day" in cell:
+               Day = cell.replace(".jpeg", "")
             if "Wound" in cell:
               Wound = cell
-              if Wound in dictionary:
-                dictionary[Wound] += 1
-              if Wound not in dictionary:
+              if Wound + Day in dictionary:
+                dictionary[Wound + Day] += 1
+              if Wound + Day not in dictionary:
                 dictionary[Wound] = 1
       print(dictionary)
       for key in dictionary.keys():
         value = dictionary[key]
-        lists.append([dropbox_path, exp, key, day, value])
+        lists.append([dropbox_path, exp, key, Day.replace(".",""), value])
       print(lists)
   return lists
         
@@ -68,9 +70,11 @@ def write_to_file(wounds, folder_list, count_list, title):
 if __name__ == "__main__":
   #user inputs---------------------: 
   type_ = "iPhone"
-  exp = "Exp4"
-  dropbox_path = "/BETR DARPA Project/Research and Data/Porcine Experiment at Davis/20221021-20221104 Swine Expt-4/Wound Photos by iPhone"
   base = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/"
+
+  exp = "Exp18"
+  dropbox_path = "/BETR DARPA Project/Research and Data/Porcine Experiment at Davis/20231212-20231222 Swine Expt-18/Wound Photos by iPhone"
+  
   img_folder = "Experiment Images/" + exp 
   image_folder_path = base + img_folder
   csv_path = base + "Count Data/V1/" + type_ + "_" + exp + ".csv"
