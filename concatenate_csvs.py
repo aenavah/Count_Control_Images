@@ -63,11 +63,7 @@ if __name__ == "__main__":
     file_path = base + file + ".csv"
     dropbox_path = (dropbox_paths[index])
     df_curr = pd.read_csv(file_path)
-    dropbox_column = pd.DataFrame({'Dropbox Path': [dropbox_path] * df_curr.shape[0]})
-    exp_column = pd.DataFrame({'Experiment': [file] * df_curr.shape[0]})
-
-    df_curr_updated = pd.concat([dropbox_column[["Dropbox Path"]], exp_column[["Experiment"]], df_curr[["Wound", "Folder Name", "Count"]]], axis=1, ignore_index=True)
-    main_df = pd.concat([main_df, df_curr_updated], axis=0, ignore_index=True)
+    main_df = pd.concat([main_df, df_curr], axis=0, ignore_index=True)
 
   main_df.to_csv(output_path, header = ["Dropbox Path", "Experiment", "Wound", "Folder Name", "Count"])
   print("Output V2...")

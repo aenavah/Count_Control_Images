@@ -1,6 +1,33 @@
 import os
 import pandas as pd 
 
+def count_files_in_subdirectories_V2(directory, dropbox_path, exp):
+  lists = []
+  for root, dirs, files in os.walk(directory):
+    print(root)
+    if "Day" in root.split("/")[-1]:
+      day = root.split("/")[-1]
+      #file count per folder, experiment,   
+      dictionary= {}
+      for file in files:
+        file = file.split("-")
+        for cell in file:
+            if "Wound" in cell:
+              Wound = cell
+              if Wound in dictionary:
+                dictionary[Wound] += 1
+              if Wound not in dictionary:
+                dictionary[Wound] = 1
+      print(dictionary)
+      for key in dictionary.keys():
+        value = dictionary[key]
+        lists.append([dropbox_path, exp, key, day, value])
+      print(lists)
+  return lists
+        
+       
+
+
 def count_files_in_subdirectories(directory, neg_wound_index):
     try:
         wound_list = []
@@ -11,20 +38,14 @@ def count_files_in_subdirectories(directory, neg_wound_index):
             wound = " "
             folder_name = " "
             file_count = " "
-            # Count the number of files in the current subdirectory
             file_count = len(files)
-            # Print the count for the current subdirectory
             print(f"Number of files in '{root}': {file_count}")
             path = root
             path_split = path.split("/")
-            #print(path_split)
-            #print(path_split[-1])
             if ("Wound" in path_split[neg_wound_index]):
               wound = path_split[neg_wound_index]
-
             if ("2022" in path_split[-1]) or ("2023" in path_split[-1]) or ("2024" in path_split[-1]):
               folder_name = path_split[-1]
-
             if (wound!=" " and file_count!=" " and folder_name != " "):
               wound_list.append(wound)
               count_list.append(file_count)
@@ -38,7 +59,7 @@ def count_files_in_subdirectories(directory, neg_wound_index):
 def write_to_file(wounds, folder_list, count_list, title):
   df = pd.DataFrame({
   "Dropbox Path": dropbox_path,
-  "Experiment": experiment,
+  "Experiment": exp,
   "Wound": wounds,
   "Folder Name": folder_list,
   "Count": count_list})
@@ -46,13 +67,22 @@ def write_to_file(wounds, folder_list, count_list, title):
 
 if __name__ == "__main__":
   #user inputs---------------------: 
-  dropbox_path = "path placeholder"
-  type_ = "Device"
-  #path = "YOURPATH/Wound_X/Date-Time/data.jpg" image path 
-  path = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Experiment Images/Pi_2"
-  wound_subdirectory = -2 #aligns with subdirectory above
-  experiment = "Exp4_Pig2" 
-  #---------------------------------
+  type_ = "iPhone"
+  exp = "Exp4"
+  dropbox_path = "/BETR DARPA Project/Research and Data/Porcine Experiment at Davis/20221021-20221104 Swine Expt-4/Wound Photos by iPhone"
+  base = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/"
+  img_folder = "Experiment Images/" + exp 
+  image_folder_path = base + img_folder
+  csv_path = base + "Count Data/V1/" + type_ + "_" + exp + ".csv"
 
-  wound_list, folder_list, count_list = count_files_in_subdirectories(path, wound_subdirectory)
-  write_to_file(wound_list, folder_list, count_list, type_ + "_" + experiment + ".csv")
+  #---------------------------------
+  if type_ == "Device":
+    #path = "YOURPATH/Wound_X/Date-Time/data.jpg" image path 
+    wound_subdirectory = -2 #aligns with subdirectory above
+    wound_list, folder_list, count_list = count_files_in_subdirectories(image_folder_path, wound_subdirectory)
+    write_to_file(wound_list, folder_list, count_list, type_ + "_" + exp + ".csv")
+
+if type_ == "iPhone":
+    list = count_files_in_subdirectories_V2(image_folder_path, dropbox_path, exp)
+    pd = pd.DataFrame(list)
+    pd.to_csv(csv_path)
