@@ -16,11 +16,15 @@ def correct_naming(path):
 if __name__ == "__main__":
   global base
   type_ = "iPhone"
-  base = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Count Data/V1/"
+  #csvs with counts
+  base = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Count Data/"
 
-  output_path = base + type_ + "_Data_V2.csv"
-  output_path_V2 = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/Count Data/" + "Data_" + type_ + "_V3.csv"
+  #concatenated csv path 
+  output_path = base + "V2/" + type_ + "_Data_V2.csv"
+  #concatenated and corrected naming 
+  output_path_V2 = base + "Data_" + type_ + "_V3.csv"
 
+  #name of csvs with counts in V1
   exp1_pig305 = "Exp1_Pig305"
   exp1_pig306 = "Exp1_Pig306"
   exp2 = "Exp2"
@@ -51,8 +55,8 @@ if __name__ == "__main__":
     main_df = pd.concat([main_df, df_curr], axis=0, ignore_index=True)
 
   main_df.to_csv(output_path, header = ["Index", "Dropbox Path", "Experiment", "Wound", "Folder Name", "Count"])
-  print("Output V2...")
+  print("Output concatenated V2 in " + output_path + " ...")
   main_df_updated = correct_naming(output_path)
   print("Updated naming...")
   main_df_updated.to_csv(output_path_V2)
-  print("Output V3...")
+  print("Output V3 with fixed naming in " + output_path_V2 + " ...")

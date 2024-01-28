@@ -26,9 +26,6 @@ def count_files_in_subdirectories_V2(directory, dropbox_path, exp):
         lists.append([dropbox_path, exp, key, Day.replace(".",""), value])
       print(lists)
   return lists
-        
-       
-
 
 def count_files_in_subdirectories(directory, neg_wound_index):
     try:
@@ -58,7 +55,7 @@ def count_files_in_subdirectories(directory, neg_wound_index):
     except FileNotFoundError:
         print(f"Error: The specified directory '{directory}' does not exist.")
 
-def write_to_file(wounds, folder_list, count_list, title):
+def write_to_file(wounds, folder_list, count_list, title, dropbox_path, exp):
   df = pd.DataFrame({
   "Dropbox Path": dropbox_path,
   "Experiment": exp,
@@ -69,22 +66,22 @@ def write_to_file(wounds, folder_list, count_list, title):
 
 if __name__ == "__main__":
   #user inputs---------------------: 
-  type_ = "iPhone"
+  type_ = "iPhone" #change these once
   base = "/Users/alexandranava/Desktop/DARPA/Tasks/Count_Control_Images/"
 
-  exp = "Exp18"
+  exp = "Exp18" #change for every experiment
   dropbox_path = "/BETR DARPA Project/Research and Data/Porcine Experiment at Davis/20231212-20231222 Swine Expt-18/Wound Photos by iPhone"
   
-  img_folder = "Experiment Images/" + exp 
+  img_folder = "Experiment Images/" + exp #shouldn't have to change
   image_folder_path = base + img_folder
   csv_path = base + "Count Data/V1/" + type_ + "_" + exp + ".csv"
 
   #---------------------------------
   if type_ == "Device":
-    #path = "YOURPATH/Wound_X/Date-Time/data.jpg" image path 
-    wound_subdirectory = -2 #aligns with subdirectory above
+    #img_path = "YOURPATH/Wound_X/Date-Time/data.jpg" image path from fromdropbox
+    wound_subdirectory = -2 #aligns with subdirectory above, might need to be adjusted
     wound_list, folder_list, count_list = count_files_in_subdirectories(image_folder_path, wound_subdirectory)
-    write_to_file(wound_list, folder_list, count_list, type_ + "_" + exp + ".csv")
+    write_to_file(wound_list, folder_list, count_list, csv_path, dropbox_path, exp)
 
 if type_ == "iPhone":
     list = count_files_in_subdirectories_V2(image_folder_path, dropbox_path, exp)
