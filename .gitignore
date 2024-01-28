@@ -1,6 +1,7 @@
 *.zip
 Count Data
 Archived
+.DS_Store
 Experiment_Images
 *.xlsx
 .zip
